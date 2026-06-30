@@ -1,0 +1,80 @@
+//v_repo
+package com.example.demo.repository;
+
+import com.example.demo.entity.v_entity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface v_repo extends JpaRepository<v_entity,Integer> {
+
+}
+
+//restcontroller
+package com.example.demo.controller;
+
+import com.example.demo.entity.v_entity;
+import com.example.demo.service.v_service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
+    @Autowired
+    private v_service ser;
+
+    @PostMapping("/add")
+    public v_entity add(@RequestBody v_entity s) {
+        return ser.storeData(s);
+    }
+
+    @GetMapping("/getAll")
+    public List<v_entity> get() {
+        return ser.getAll();
+    }
+
+}
+//v_service
+
+package com.example.demo.service;
+
+import com.example.demo.entity.v_entity;
+import com.example.demo.repository.v_repo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class v_service {
+
+    @Autowired
+    private v_repo repo;
+    public v_entity storeData (v_entity v) {
+        if (v.getAge() > 0) {
+            return repo.save(v);
+        }
+        return null;
+    }
+
+    public List<v_entity> getAll() { //to return more than 1 entity,we have to use arraylist as return type
+        return repo.findAll();
+    }
+
+}//demo1application
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Demo1Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Demo1Application.class, args);
+    }
+
+}
+
