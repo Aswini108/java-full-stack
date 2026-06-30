@@ -1,0 +1,8 @@
+package com.example.demo.repository;
+
+import com.example.demo.entity.v_entity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface v_repo extends JpaRepository<v_entity,Integer> {
+
+}
