@@ -1,0 +1,25 @@
+
+package com.example.demo.service;
+
+import com.example.demo.entity.v_entity;
+import com.example.demo.repository.v_repo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class v_service {
+
+    @Autowired
+    private v_repo repo;
+    public v_entity storeData (v_entity v) {
+        if (v.getAge() > 0) {
+            return repo.save(v);
+        }
+        return null;
+    }
+
+    public List<v_entity> getAll() { //to return more than 1 entity,we have to use arraylist as return type
+        return repo.findAll();
+    }
