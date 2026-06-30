@@ -1,0 +1,27 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.v_entity;
+import com.example.demo.service.v_service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
+    @Autowired
+    private v_service ser;
+
+    @PostMapping("/add")
+    public v_entity add(@RequestBody v_entity s) {
+        return ser.storeData(s);
+    }
+
+    @GetMapping("/getAll")
+    public List<v_entity> get() {
+        return ser.getAll();
+    }
+
+}
